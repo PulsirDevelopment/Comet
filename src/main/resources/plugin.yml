@@ -1,0 +1,4 @@
+name: Comet
+version: '${version}'
+main: net.pulsir.comet.Comet
+api-version: '1.20'
