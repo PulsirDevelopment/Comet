@@ -20,16 +20,18 @@ public class Mongo implements IDatabase {
     private final MongoManager mongoManager = new MongoManager();
 
     @Override
-    public void loadPlayer(UUID uuid) {
+    public void loadPlayers() {
         FindIterable<Document> iterable = mongoManager.getPunishments().find();
         try (MongoCursor<Document> cursor = iterable.iterator()) {
             while (cursor.hasNext()) {
                 Document document = cursor.next();
-                if (Comet.getInstance().getPunishmentManger().getPunishments().get(uuid) == null) {
-                    List<Punishment> punishmentList = new ArrayList<>(List.of(new PunishmentWrapper().unwrap(document)));
-                    Comet.getInstance().getPunishmentManger().getPunishments().put(uuid, punishmentList);
+
+                List<Punishment> punishmentList = new ArrayList<>(List.of(new PunishmentWrapper().unwrap(document)));
+
+                if (Comet.getInstance().getPunishmentManger().getPunishments().get(UUID.fromString(document.getString("uuid"))) == null) {
+                    Comet.getInstance().getPunishmentManger().getPunishments().put(UUID.fromString(document.getString("uuid")), punishmentList);
                 } else {
-                    Comet.getInstance().getPunishmentManger().getPunishments().get(uuid).add(new PunishmentWrapper().unwrap(document));
+                    Comet.getInstance().getPunishmentManger().getPunishments().get(UUID.fromString(document.getString("uuid"))).add(new PunishmentWrapper().unwrap(document));
                 }
             }
         }

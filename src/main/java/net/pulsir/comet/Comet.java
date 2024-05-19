@@ -1,16 +1,17 @@
 package net.pulsir.comet;
 
 import lombok.Getter;
+import net.pulsir.comet.command.KickCommand;
+import net.pulsir.comet.command.WarnCommand;
 import net.pulsir.comet.database.IDatabase;
 import net.pulsir.comet.database.impl.FlatFile;
 import net.pulsir.comet.database.impl.Mongo;
-import net.pulsir.comet.listener.ProfileListener;
 import net.pulsir.comet.mongo.MongoManager;
 import net.pulsir.comet.punishment.manager.PunishmentManger;
 import net.pulsir.comet.utils.config.Config;
+import net.pulsir.comet.utils.message.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -22,7 +23,10 @@ public final class Comet extends JavaPlugin {
     @Getter private static Comet instance;
 
     private Config configuration;
+    private Config language;
     private Config punishments;
+
+    private Message message;
 
     private PunishmentManger punishmentManger;
     private MongoManager mongoManager;
@@ -31,6 +35,8 @@ public final class Comet extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        this.loadConfiguration();
 
         if (Objects.requireNonNull(getConfiguration().getConfiguration().getString("database")).equalsIgnoreCase("mongo")) {
             this.mongoManager = new MongoManager();
@@ -43,11 +49,13 @@ public final class Comet extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage("[Comet] Unsupported database. Loading default one [FLATFILE].");
             database = new FlatFile();
         }
-
         this.punishmentManger = new PunishmentManger();
 
-        this.loadConfiguration();
-        this.loadListeners(Bukkit.getPluginManager());
+        this.database.loadPlayers();
+
+        this.message = new Message();
+
+        this.loadCommands();
     }
 
     @Override
@@ -56,17 +64,21 @@ public final class Comet extends JavaPlugin {
         instance = null;
     }
 
-    private void loadConfiguration(){
+    private void loadConfiguration() {
         this.configuration = new Config(this, new File(getDataFolder(), "configuration.yml"),
                 new YamlConfiguration(), "configuration.yml");
         this.punishments = new Config(this, new File(getDataFolder(), "punishments.yml"),
                 new YamlConfiguration(), "punishments.yml");
+        this.language = new Config(this, new File(getDataFolder(), "language.yml"),
+                new YamlConfiguration(), "language.yml");
 
         this.configuration.create();
         this.punishments.create();
+        this.language.create();
     }
 
-    private void loadListeners(PluginManager pluginManager){
-        pluginManager.registerEvents(new ProfileListener(), this);
+    private void loadCommands() {
+        Objects.requireNonNull(getCommand("kick")).setExecutor(new KickCommand());
+        Objects.requireNonNull(getCommand("warn")).setExecutor(new WarnCommand());
     }
 }

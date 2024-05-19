@@ -1,0 +1,23 @@
+NO-PERMISSIONS: "&cYou don't have permission to execute this command."
+PLAYER-OFFLINE: "&cP{player} is currently offline."
+
+USAGE:
+  - "&f&m------------------------"
+  - "&c/kick <player> <reason>"
+  - "&f&m------------------------"
+
+FORMAT:
+  KICK:
+    - ""
+    - "&cYou have been kicked from SERVER"
+    - "&cReason: {reason}"
+    - ""
+
+SUCCESS:
+  KICK-PUBLIC: "&d{player} &7has been kicked by &d{staff} &f for {reason}"
+  KICK-SILENT: "&8(&d-s&8) &d{player} &7has been kicked by &d{staff} &f for {reason}"
+  WARN-PUBLIC: "&d{player} &7has been warned by &d{staff} &f for {reason}"
+  WARN-SILENT: "&8(&d-s&8) &d{player} &7has been warned by &d{staff} &f for {reason}"
+
+PLAYER:
+  WARNED: "&cYou have been warned by {staff} for {reason}."

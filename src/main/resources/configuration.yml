@@ -1,1 +1,20 @@
-database: "flatfile"
+database: "flatfile" # mongo | flatfile
+mongo-uri: ""
+
+message-format: "legacy" # legacy | modern
+
+default-reason:
+  kick:
+    - "Spamming"
+  warn:
+    - "Spamming"
+
+default-warn-expiry:
+  type: "days" # seconds | minutes | hours | days
+  amount: 7
+
+history-inventory:
+  title: "&cHistory"
+  size: 54
+  fill: false
+  filled-item: ""

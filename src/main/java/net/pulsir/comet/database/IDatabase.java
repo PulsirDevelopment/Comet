@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public interface IDatabase {
 
-    void loadPlayer(UUID uuid);
+    void loadPlayers();
     void savePlayers();
 }

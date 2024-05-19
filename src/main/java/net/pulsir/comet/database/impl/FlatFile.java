@@ -13,10 +13,9 @@ import java.util.UUID;
 public class FlatFile implements IDatabase {
 
     @Override
-    public void loadPlayer(UUID uuid) {
+    public void loadPlayers() {
         if (Comet.getInstance().getPunishments().getConfiguration().getConfigurationSection("player") == null) return;
         for (final String player : Objects.requireNonNull(Comet.getInstance().getPunishments().getConfiguration().getConfigurationSection("player")).getKeys(false)) {
-
             Comet.getInstance().getPunishmentManger().getPunishments()
                     .put(UUID.fromString(Objects.requireNonNull(Comet.getInstance().getPunishments().getConfiguration().getString("player." + player + ".uuid"))),
                             toPunishment(Comet.getInstance().getPunishments().getConfiguration().getStringList("player." + player + ".punishments")));

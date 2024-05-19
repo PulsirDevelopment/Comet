@@ -36,8 +36,8 @@ public class PunishmentWrapper implements IWrapper<Document, Punishment> {
     public String toString(Punishment punishment) {
         String uuid = punishment.getUuid().toString();
         String type = punishment.getType().getName();
-        String createdAt = punishment.getCreatedAt().toString();
-        String expiresAt = punishment.getExpiresAt().toString();
+        long createdAt = punishment.getCreatedAt().getTime();
+        long expiresAt = punishment.getExpiresAt().getTime();
         String reason = punishment.getReason();
         String bannedBy = punishment.getBannedBy();
 
@@ -49,8 +49,8 @@ public class PunishmentWrapper implements IWrapper<Document, Punishment> {
     public Punishment to(String string) {
         UUID uuid = UUID.fromString(string.split("<splitter>")[0]);
         PunishmentType punishmentType = PunishmentType.valueOf(string.split("<splitter>")[1].toUpperCase());
-        Date createdAt = new Date(string.split("<splitter>")[2]);
-        Date expiresAt = new Date(string.split("<splitter>")[3]);
+        Date createdAt = new Date(Long.parseLong(string.split("<splitter>")[2]));
+        Date expiresAt = new Date(Long.parseLong(string.split("<splitter>")[3]));
         String reason = string.split("<splitter>")[4];
         String bannedBy = string.split("<splitter>")[5];
 
