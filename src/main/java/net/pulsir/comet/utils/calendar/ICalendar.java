@@ -1,13 +1,25 @@
 package net.pulsir.comet.utils.calendar;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Calendar;
 import java.util.Date;
 
-public record ICalendar(Date date) {
+@Getter
+@Setter
+public class ICalendar {
+
+    private Date date;
+    private Calendar calendar;
+
+    public ICalendar(Date date){
+        this.date = date;
+        this.calendar = Calendar.getInstance();
+        this.calendar.setTime(this.date);
+    }
 
     public Date add(String string, int amount) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
         if (string.equalsIgnoreCase("days")) {
             calendar.add(Calendar.DATE, amount);
         } else if (string.equalsIgnoreCase("hours")) {
@@ -20,4 +32,5 @@ public record ICalendar(Date date) {
 
         return this.date;
     }
+
 }

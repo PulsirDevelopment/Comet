@@ -57,14 +57,14 @@ public class WarnCommand implements CommandExecutor, TabCompleter {
 
                 if (Comet.getInstance().getPunishmentManger().getPunishments().get(player.getUniqueId()) == null) {
                     List<Punishment> punishments = new ArrayList<>(List.of(new Punishment(player.getUniqueId(), PunishmentType.WARN, date,
-                                calendar.date(),
+                                calendar.getDate(),
                                 reason,
                                 sender.getName())));
                     Comet.getInstance().getPunishmentManger().getPunishments().put(player.getUniqueId(), punishments);
                 } else {
                     Comet.getInstance().getPunishmentManger().getPunishments().get(player.getUniqueId()).add(
                             new Punishment(player.getUniqueId(), PunishmentType.WARN, date,
-                                    calendar.date(),
+                                    calendar.getDate(),
                                     reason,
                                     sender.getName())
                     );

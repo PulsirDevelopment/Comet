@@ -1,6 +1,7 @@
 package net.pulsir.comet;
 
 import lombok.Getter;
+import net.pulsir.comet.command.HistoryCommand;
 import net.pulsir.comet.command.KickCommand;
 import net.pulsir.comet.command.WarnCommand;
 import net.pulsir.comet.database.IDatabase;
@@ -11,6 +12,7 @@ import net.pulsir.comet.punishment.manager.PunishmentManger;
 import net.pulsir.comet.utils.config.Config;
 import net.pulsir.comet.utils.message.Message;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,6 +33,8 @@ public final class Comet extends JavaPlugin {
     private PunishmentManger punishmentManger;
     private MongoManager mongoManager;
     private IDatabase database;
+
+    private final NamespacedKey historyButton = new NamespacedKey(this, "button");
 
     @Override
     public void onEnable() {
@@ -78,6 +82,7 @@ public final class Comet extends JavaPlugin {
     }
 
     private void loadCommands() {
+        Objects.requireNonNull(getCommand("history")).setExecutor(new HistoryCommand());
         Objects.requireNonNull(getCommand("kick")).setExecutor(new KickCommand());
         Objects.requireNonNull(getCommand("warn")).setExecutor(new WarnCommand());
     }

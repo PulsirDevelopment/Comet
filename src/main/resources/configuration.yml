@@ -15,6 +15,51 @@ default-warn-expiry:
 
 history-inventory:
   title: "&cHistory"
-  size: 54
+  size: 27
   fill: false
   filled-item: ""
+  items:
+    1:
+      item: "RED_WOOL"
+      enchantment:
+        - "DURABILITY:1"
+      name: "&cBlacklists"
+      lore:
+        - ""
+        - "&fLeft click to view player blacklist history"
+        - ""
+      slot: 10
+      ban-type: "blacklist"
+    2:
+      item: "ORANGE_WOOL"
+      enchantment:
+        - "DURABILITY:1"
+      name: "&6Bans"
+      lore:
+        - ""
+        - "&fLeft click to view player ban history"
+        - ""
+      slot: 12
+      ban-type: "ban"
+    3:
+      item: "YELLOW_WOOL"
+      enchantment:
+        - "DURABILITY:1"
+      name: "&eMutes"
+      lore:
+        - ""
+        - "&fLeft click to view player mutes history"
+        - ""
+      slot: 14
+      ban-type: "mute"
+    4:
+      item: "LIME_WOOL"
+      enchantment:
+        - "DURABILITY:1"
+      name: "&aWarns"
+      lore:
+        - ""
+        - "&fLeft click to view player warns history"
+        - ""
+      slot: 16
+      ban-type: "warn"
